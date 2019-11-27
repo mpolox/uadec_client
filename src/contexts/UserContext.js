@@ -12,7 +12,6 @@ const UserContextProvider = (props) => {
 
   /* Functions */
   const addUser = (name, lastName, lastNameMother, email, phone) => {
-    console.log("ADDing---");
     setUsers([...users, { name, lastName, lastNameMother, email, phone }]);
   };
 
@@ -21,7 +20,7 @@ const UserContextProvider = (props) => {
   };
 
   return (
-    <UserContext.Provider value={{users, addUser, deleteUser}}>
+    <UserContext.Provider value={{ users, addUser, deleteUser }}>
       {props.children}
     </UserContext.Provider>
   );

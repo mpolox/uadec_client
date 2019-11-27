@@ -1,6 +1,13 @@
-import React from 'react';
-
+import React, {useContext} from 'react';
+import { UserContext } from '../contexts/UserContext';
 const UserItem = (props) => {
+  const { deleteUser } = useContext(UserContext);
+
+  const handleDelete = () => {
+    console.log("DELETE:", user.id);
+    deleteUser(user.id);
+  }
+
   const { user } = props;
   return (
     <tbody>
@@ -10,7 +17,7 @@ const UserItem = (props) => {
         <td>{user.lastNameMother}</td>
         <td>{user.email}</td>
         <td className="options" stye={"text-align: right;"}>
-          <button>X</button>
+          <button onClick={handleDelete}>X</button>
           <button>?</button>
           <button>=</button>
         </td>
