@@ -5,9 +5,87 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: darkcyan;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+
+.App {
+  background:#008b8b;
+  width: 100%;
+  color: lightgray;
+
+}
+.Navbar {
+  padding: 10px 20px;
+  background: #114d5c;
+  text-align: center;
+}
+
+.Navbar h1{
+  margin: 15px 0;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+.user-table {
+  align-self: center;
+}
+table {
+  border-collapse: collapse;
+}
+
+
+table {
+  border: 1px solid #114d5c;
+  margin-left:auto; 
+  margin-right:auto;
+  min-width: 900px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+th {
+  background: #114d5c;
+  padding: 15px;  
+  text-transform: capitalize;
+}
+
+td {
+  padding: 15px;
+  border-bottom: 1px solid #114d5c;
+}
+
+tr:hover {
+  background-color: #049c9c;
+}
+
+.options {
+  text-align: right;
+}
+
+button {
+  margin: 2px;
+}
+
+form {
+  background: #114d5c;
+  padding: 15px;
+  width: 75%;
+  margin: auto;
+}
+
+input {
+  width: 90%;
+  padding: 8px;
+  box-sizing: border-box;
+  margin: 10px auto;
+  border-radius: 5px;
+  border: 0;
 }
