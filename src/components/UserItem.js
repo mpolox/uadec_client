@@ -7,11 +7,28 @@ import { faTrashAlt, faIdCard, faUserEdit, faCloudDownloadAlt } from '@fortaweso
 const UserItem = (props) => {
   const { dispatch } = useContext(UserContext);
 
-  const handleDelete = () => {
-    dispatch({
-      type: "REMOVE_USER",
-      id: user.id
-    });
+  const handleDelete = (e) => {
+
+    console.log("NAME:", e.currentTarget.name);
+    switch (e.currentTarget.name) {
+      case "download":
+        break;
+      case "details":
+          break;
+      case "edit":
+          break;
+      case "delete":
+          dispatch({
+            type: "REMOVE_USER",
+            id: user.id
+          });
+        break;        
+      default:
+        break;
+    }
+
+
+
   }
 
   const { user } = props;
@@ -23,17 +40,17 @@ const UserItem = (props) => {
         <td>{user.lastNameMother}</td>
         <td>{user.email}</td>
         <td className="options" stye={"text-align: right;"}>
-          <button >
-            <FontAwesomeIcon icon={faCloudDownloadAlt} size="lg"/>
+          <button name="download" onClick={handleDelete}>
+            <FontAwesomeIcon icon={faCloudDownloadAlt} size="lg" />
           </button>
-          <button >
-            <FontAwesomeIcon icon={faIdCard} size="lg"/>
+          <button name="details" onClick={handleDelete}>
+            <FontAwesomeIcon icon={faIdCard} size="lg" />
           </button>
-          <button>
-            <FontAwesomeIcon icon={faUserEdit} size="lg"/>
+          <button name="edit" onClick={handleDelete}>
+            <FontAwesomeIcon icon={faUserEdit} size="lg" />
           </button>
-          <button className="button-delete" onClick={handleDelete}>
-            <FontAwesomeIcon icon={faTrashAlt} size="lg"/>
+          <button name="delete" className="button-delete" onClick={handleDelete}>
+            <FontAwesomeIcon icon={faTrashAlt} size="lg" />
           </button>
         </td>
       </tr>
