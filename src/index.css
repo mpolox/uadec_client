@@ -13,20 +13,20 @@ code {
     monospace;
 }
 
-
 .App {
-  background:#008b8b;
+  background: #008b8b;
   width: 100%;
   color: lightgray;
 
 }
+
 .Navbar {
   padding: 10px 20px;
   background: #114d5c;
   text-align: center;
 }
 
-.Navbar h1{
+.Navbar h1 {
   margin: 15px 0;
 }
 
@@ -37,15 +37,15 @@ code {
 .user-table {
   align-self: center;
 }
+
 table {
   border-collapse: collapse;
 }
 
-
 table {
   border: 1px solid #114d5c;
-  margin-left:auto; 
-  margin-right:auto;
+  margin-left: auto;
+  margin-right: auto;
   min-width: 900px;
   text-align: left;
   margin-bottom: 10px;
@@ -53,7 +53,7 @@ table {
 
 th {
   background: #114d5c;
-  padding: 15px;  
+  padding: 15px;
   text-transform: capitalize;
 }
 

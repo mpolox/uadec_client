@@ -9,9 +9,9 @@ function App() {
   return (
     <div className="App">
       <UserContextProvider>
-        <Navbar/>
-        <UserList/>
-        <UserForm/>
+        <Navbar />
+        <UserList />
+        <UserForm />
       </UserContextProvider>
     </div>
   );

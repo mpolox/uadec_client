@@ -1,11 +1,13 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from '../contexts/UserContext';
 const UserItem = (props) => {
-  const { deleteUser } = useContext(UserContext);
+  const { dispatch } = useContext(UserContext);
 
   const handleDelete = () => {
-    console.log("DELETE:", user.id);
-    deleteUser(user.id);
+    dispatch({
+      type: "REMOVE_USER",
+      id: user.id
+    });
   }
 
   const { user } = props;

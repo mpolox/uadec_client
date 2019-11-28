@@ -1,11 +1,9 @@
-import React, { useContext } from "react";
-import { UserContext } from "../contexts/UserContext";
+import React from "react";
 
 const Navbar = (props) => {
-  const { users } = useContext(UserContext);
   return (
     <div className="Navbar">
-      <h1>Application users: {users.length}</h1>
+      <h1>Application users</h1>
     </div>
   );
 }

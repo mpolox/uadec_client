@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { UserContext } from '../contexts/UserContext';
 
 const UserForm = (props) => {
-  const { addUser } = useContext(UserContext);
+  const { dispatch } = useContext(UserContext);
 
   /* user propierties */
   const [name, setName] = useState("");
@@ -13,9 +13,11 @@ const UserForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("adding...", name);
     if (name && lastName && email) {
-      addUser(name, lastName, lastNameMother, email, phone);
+      dispatch({
+        type: "ADD_USER",
+        user: { name, lastName, lastNameMother, email, phone }
+      });
       setName("");
       setLastName("");
       setLastNameMother("");
