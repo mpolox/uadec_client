@@ -1,5 +1,9 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../contexts/UserContext';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt, faIdCard, faUserEdit, faCloudDownloadAlt } from '@fortawesome/free-solid-svg-icons'
+
 const UserItem = (props) => {
   const { dispatch } = useContext(UserContext);
 
@@ -19,9 +23,18 @@ const UserItem = (props) => {
         <td>{user.lastNameMother}</td>
         <td>{user.email}</td>
         <td className="options" stye={"text-align: right;"}>
-          <button onClick={handleDelete}>X</button>
-          <button>?</button>
-          <button>=</button>
+          <button >
+            <FontAwesomeIcon icon={faCloudDownloadAlt} size="lg"/>
+          </button>
+          <button >
+            <FontAwesomeIcon icon={faIdCard} size="lg"/>
+          </button>
+          <button>
+            <FontAwesomeIcon icon={faUserEdit} size="lg"/>
+          </button>
+          <button className="button-delete" onClick={handleDelete}>
+            <FontAwesomeIcon icon={faTrashAlt} size="lg"/>
+          </button>
         </td>
       </tr>
     </tbody>

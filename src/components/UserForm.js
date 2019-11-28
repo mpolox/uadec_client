@@ -28,13 +28,15 @@ const UserForm = (props) => {
 
   return (
     <form className="form" onSubmit={handleSubmit}>
+      <h3>Agregar usuario</h3>
       <input type="text" value={name} placeholder="Nombre" onChange={(e) => setName(e.target.value)} />
       <input type="text" value={lastName} placeholder="Apellido" onChange={(e) => setLastName(e.target.value)} />
       <input type="text" value={lastNameMother} placeholder="Apellido Materno" onChange={(e) => setLastNameMother(e.target.value)} />
       <input type="text" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
       <input type="text" value={phone} placeholder="Teléfono" onChange={(e) => setPhone(e.target.value)} />
-      <input type="submit" value="Agregar Usuario"></input>
+      <input type="submit" value="Agregar Usuario"></input>           
     </form>
+    
   );
 }
 

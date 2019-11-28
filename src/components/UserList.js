@@ -6,7 +6,7 @@ const UserList = (props) => {
   const { users } = useContext(UserContext);
   return users.length ?
     <div className="user-list">
-      <h2>{users.length} users registered</h2>
+      <h2>{users.length} usuarios registrados</h2>
       <table className="user-table">
         <thead>
           <tr>
@@ -14,7 +14,7 @@ const UserList = (props) => {
             <th>Apellido</th>
             <th>Apellido Materno</th>
             <th>email</th>
-            <th>Options</th>
+            <th className="options-header">Options</th>
           </tr>
         </thead>
         {
@@ -24,9 +24,9 @@ const UserList = (props) => {
         }
       </table>
     </div> :
-    <div>
-      No users
-  </div>
+    <h2>
+      No existen usuarios registrados
+  </h2>
 }
 
 export default UserList;

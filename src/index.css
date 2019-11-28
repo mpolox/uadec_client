@@ -58,7 +58,7 @@ th {
 }
 
 td {
-  padding: 15px;
+  padding: 5px;
   border-bottom: 1px solid #114d5c;
 }
 
@@ -70,8 +70,29 @@ tr:hover {
   text-align: right;
 }
 
+.options-header {
+  text-align: center;
+}
+
 button {
   margin: 2px;
+  width: 42px;
+  height: 35px;
+  background: #114d5c;
+  color: #87bbbb;
+  border-radius: 5px;
+  border: 0;  
+  cursor: pointer;
+}
+
+.button-warning {
+  background: #ffc107;
+  color: #3b3917;
+}
+
+.button-delete {
+  background: #dc3545; 
+  color: lightpink;
 }
 
 form {
