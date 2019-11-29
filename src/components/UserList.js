@@ -1,9 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { UserContext } from "../contexts/UserContext";
 import UserItem from './UserItem';
 
 const UserList = (props) => {
-  const { users } = useContext(UserContext);
+
+  const { users, dispatch } = useContext(UserContext);
+
+  useEffect(() => {
+    console.log("I'll load initial user list only on first load");
+    dispatch({ type: "GET_LIST_LOCALSTORAGE" });
+    //dispatch({type:"GET_LIST_AXIOS"});    
+  }, []);
+
   return users.length ?
     <div className="user-list">
       <h2>{users.length} usuarios registrados</h2>

@@ -14,21 +14,18 @@ const UserItem = (props) => {
       case "download":
         break;
       case "details":
-          break;
+        break;
       case "edit":
-          break;
+        break;
       case "delete":
-          dispatch({
-            type: "REMOVE_USER",
-            id: user.id
-          });
-        break;        
+        dispatch({
+          type: "REMOVE_USER",
+          name: user.name
+        });
+        break;
       default:
         break;
     }
-
-
-
   }
 
   const { user } = props;
