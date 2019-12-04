@@ -1,34 +1,38 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { UserContext } from '../contexts/UserContext';
+import Modal from "./Modal"
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt, faIdCard, faUserEdit, faCloudDownloadAlt } from '@fortawesome/free-solid-svg-icons'
 
 const UserItem = (props) => {
-  const { dispatch } = useContext(UserContext);
+  const { user } = props;
+  const { deleteUser } = useContext(UserContext);
+  const [isVisible, setIsVisible] = useState(false);
 
-  const handleDelete = (e) => {
-
-    console.log("NAME:", e.currentTarget.name);
+  const handleClick = (e) => {
     switch (e.currentTarget.name) {
       case "download":
+        // dispatch({type:"GET_LIST_AXIOS"})
         break;
       case "details":
+        // dispatch({type:"GET_LIST_LOCALSTORAGE"})
         break;
       case "edit":
         break;
       case "delete":
-        dispatch({
-          type: "REMOVE_USER",
-          name: user.name
-        });
+        setIsVisible(true);
+        //deleteUser(user.id);
+        break;
+      case "button1" :
+        setIsVisible(false);
         break;
       default:
         break;
     }
   }
 
-  const { user } = props;
   return (
     <tbody>
       <tr>
@@ -37,20 +41,21 @@ const UserItem = (props) => {
         <td>{user.lastNameMother}</td>
         <td>{user.email}</td>
         <td className="options" stye={"text-align: right;"}>
-          <button name="download" onClick={handleDelete}>
+          <button name="download" >
             <FontAwesomeIcon icon={faCloudDownloadAlt} size="lg" />
           </button>
-          <button name="details" onClick={handleDelete}>
+          <button name="details">
             <FontAwesomeIcon icon={faIdCard} size="lg" />
           </button>
-          <button name="edit" onClick={handleDelete}>
+          <button name="edit" >
             <FontAwesomeIcon icon={faUserEdit} size="lg" />
           </button>
-          <button name="delete" className="button-delete" onClick={handleDelete}>
+          <button name="delete" className="button-delete" onClick={handleClick}>
             <FontAwesomeIcon icon={faTrashAlt} size="lg" />
           </button>
         </td>
       </tr>
+    
     </tbody>
   )
 }

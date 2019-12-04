@@ -1,38 +1,36 @@
-import React, {useState, useContext} from 'react';
-import { UserContext } from "../contexts/UserContext";
+import React, {useState} from 'react';
+import Modal from "../components/Modal"
 
+const TestComponent = (props) => {
 
-export const Displayer = (props) => {
-  console.log(props);
-  console.log("USERS:", props.users);
-  return (
-    props.isOn ? props.users ?
-    <div>SOMETHIN {props.users.length}</div> :
-    <div>mm...</div>:
-    <div>SOMETHIN ELSE</div>
-  )
-}
+  const [isVisible, setIsVisible] = useState(false);
 
-const TestComponent = () => {
-  const [isOn, setIsOn] = useState(false);
-  const { users, dispatch } = useContext(UserContext);
-
-  const handleClick = () => {
-    dispatch({type:"GET_USERS"})
-    setIsOn(!isOn);
+  const handleClick = (e) => {
+    console.log("--ITEM-->", e.currentTarget.name);
+    setIsVisible(!isVisible)
   }
 
 
-
-  console.log("ON:", isOn);
   return (
     <div>
-      <Displayer isOn={isOn} users={users}/>
-      <button onClick={handleClick}>OK</button>
+      <button name="open" className="button-warning" onClick={handleClick}>OK</button>
+      <Modal
+        title={"Destroy"}
+        text={"Seguro que quieres crear el big bang?"}
+        isVisible={isVisible}
 
+        button1_text={"Si, destruir"}
+        button1_action={handleClick}
+        button1_style={"button-delete"}
+
+        button2_text={"Nel no se arma"}
+        button2_action={handleClick}
+        button2_style={"button-warning"}
+
+        button3_text={"muestrame mas"}
+        button3_action={handleClick}
+      />
     </div>
-    
   );
 }
- 
 export default TestComponent;

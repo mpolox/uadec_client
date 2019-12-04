@@ -2,6 +2,7 @@ import axios from "axios";
 
 const UserReducer = (state, action) => {
   const PATH = "https://localhost:44397/";
+  
 
   switch (action.type) {
     case "ADD_USER":
@@ -17,16 +18,19 @@ const UserReducer = (state, action) => {
       return myUsers;
 
     case "GET_LIST_AXIOS":
-      console.log("Get list from API");
+      let request_status = "Requesting"
+      console.log("Status:", request_status);
       axios.get(PATH + "user/All")
         .then(res => {
-          console.log("YEY!!!", res.data);
-          return (res.data);
+          request_status = "Received"
+          console.log("Status:", request_status);
+          console.log("DATA:", res.data);
+          return [...state, res.data];
         }).catch(err => {
-          console.log("Error on axios request", err);
+          request_status = "Error"
+          console.log("Status:", request_status);
         });
-      return [];
-
+        return [];
     case "REMOVE_USER":
       return state.filter(user => user.name !== action.name);
 

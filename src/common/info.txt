@@ -1,0 +1,349 @@
+/****** Object:  StoredProcedure [dbo].[usp_SurveyDesignSave]    Script Date: 12/4/2019 11:13:19 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [dbo].[usp_SurveyDesignSave]
+(
+	@SurveyId	UNIQUEIDENTIFIER
+	,@json NVARCHAR(MAX)
+	,@CreatedBy	NVARCHAR(100)
+)
+AS
+BEGIN	
+	SET NOCOUNT ON
+	BEGIN TRY
+	BEGIN TRANSACTION;
+		--DECLARE 	@SurveyId	UNIQUEIDENTIFIER
+		--	,@json NVARCHAR(MAX)
+		--	,@CreatedBy	NVARCHAR(100)
+
+		--SELECT @SurveyId = 'b12bae5d-b81f-4dcf-960b-ad744fb2bca2'
+		--	,@json = N'[{"id":"efe3e3bf-e1f8-4daa-9505-aba441e2cb17","order":0,"label":"Question 1","type":1,"text":"posuere imperdiet, SADASDASDSADA","children":[{"id":"e19997e9-8077-43de-8660-c775981b43bc","order":0,"label":"Question 1a","type":2,"text":"Child One - Worked?","children":[],"required":true,"parentId":"efe3e3bf-e1f8-4daa-9505-aba441e2cb17","custom":true,"options":[],"conditionals":[{"questionId":"efe3e3bf-e1f8-4daa-9505-aba441e2cb17","value":"Yes"}],"hideIf":false}],"required":true,"parentId":null,"custom":true,"options":[],"conditionals":[],"hideIf":false},{"id":"ac7bed87-00bf-41bc-be21-92eea5fcceea","order":1,"label":"Question 2","type":1,"text":"Parent Two - HideIf - No","children":[{"id":"5d601f20-ad5f-478c-8f6d-0205219e7929","order":0,"label":"Question 2a","type":2,"text":"Child Two - Worked?","children":[],"required":true,"parentId":"ac7bed87-00bf-41bc-be21-92eea5fcceea","custom":true,"options":[],"conditionals":[{"questionId":"ac7bed87-00bf-41bc-be21-92eea5fcceea","value":"No"}],"hideIf":true}],"required":true,"parentId":null,"custom":true,"options":[],"conditionals":[],"hideIf":false},{"id":"668df5b2-06cc-4e6b-b3a7-48518c76030f","order":2,"label":"Question 3","type":4,"text":"Parent Three - ShowIf - Choice 1","children":[{"id":"304bdecc-e071-4d85-8762-ca991e229604","order":0,"label":"Question 3a","type":2,"text":"Child Three - Worked?","children":[],"required":true,"parentId":"668df5b2-06cc-4e6b-b3a7-48518c76030f","custom":true,"options":[],"conditionals":[{"questionId":"668df5b2-06cc-4e6b-b3a7-48518c76030f","value":"b8aa32d8-c537-4093-b6f6-520cd520ea44"}],"hideIf":false}],"required":true,"parentId":null,"custom":true,"options":[{"id":"b8aa32d8-c537-4093-b6f6-520cd520ea44","label":"Choice 1"},{"id":"48e329c9-c408-46eb-b50a-320db1d4ace8","label":"Choice 2"},{"id":"d2268474-7a46-4c1d-b666-8b2608bc2980","label":"Choice 3"},{"id":"6086cbbd-2abf-4952-8152-7a25a1f2494c","label":"Choice 4"}],"conditionals":[],"hideIf":false},{"id":"e1343fcc-5f07-4374-ae32-ecd011cd3e08","order":3,"label":"Question 4","type":4,"text":"Parent Four - HideIf - Choice 4","children":[{"id":"be1b2db0-9a33-4743-be4d-e6a86befe3e2","order":0,"label":"Question 4a","type":2,"text":"Child Four - Worked?","children":[],"required":true,"parentId":"e1343fcc-5f07-4374-ae32-ecd011cd3e08","custom":true,"options":[],"conditionals":[{"questionId":"e1343fcc-5f07-4374-ae32-ecd011cd3e08","value":"94ab84bf-f095-4ad0-963a-11908a2bc1ac"}],"hideIf":true}],"required":true,"parentId":null,"custom":true,"options":[{"id":"715d98d7-f216-4bd1-89b0-83ea8911e68b","label":"Choice 1"},{"id":"bd031f88-e8c0-4b78-bfac-ee5e093a6ad4","label":"Choice 2"},{"id":"b4899ce4-3289-4238-a3fe-7eaf569fdb46","label":"Choice 3"},{"id":"94ab84bf-f095-4ad0-963a-11908a2bc1ac","label":"Choice 4"}],"conditionals":[],"hideIf":false},{"id":"08f2b083-0846-4abf-8873-061e1efb99e2","order":4,"label":"Question 5","type":5,"text":"Parent Five - HideIf - Choice 1 & Choice 2","children":[{"id":"839742af-8ba0-41a1-9880-04bd1318eebd","order":0,"label":"Question 5a","type":2,"text":"Child Five - Worked?","children":[],"required":true,"parentId":"08f2b083-0846-4abf-8873-061e1efb99e2","custom":true,"options":[],"conditionals":[{"questionId":"08f2b083-0846-4abf-8873-061e1efb99e2","value":"d17c4bbc-dfb1-41a3-b2f4-07ddc9195abc"},{"questionId":"08f2b083-0846-4abf-8873-061e1efb99e2","value":"d17c4bbc-dfb1-41a3-b2f4-07ddc9195abc"}],"hideIf":true}],"required":true,"parentId":null,"custom":true,"options":[{"id":"d17c4bbc-dfb1-41a3-b2f4-07ddc9195abc","label":"Choice 1"},{"id":"d1e77d71-ee24-4f30-bbdb-f85e931feff8","label":"Choice 2"},{"id":"5b8ff7db-bf3f-414d-be94-87db9e944a35","label":"Choice 3"},{"id":"b6cec5aa-9534-4e30-9721-d2cda05ba662","label":"Choice 4"}],"conditionals":[],"hideIf":false},{"id":"beb6507c-32ba-47d4-ad2a-e1e34d1d21bd","order":5,"label":"Question 6","type":7,"text":"Parent Six - ShowIf - 8/27/2018","children":[{"id":"f9637d5c-30fc-4480-ad2c-24aac6994000","order":0,"label":"Question 6a","type":2,"text":"Child Six - Worked?","children":[],"required":true,"parentId":"beb6507c-32ba-47d4-ad2a-e1e34d1d21bd","custom":true,"options":[],"conditionals":[{"questionId":"beb6507c-32ba-47d4-ad2a-e1e34d1d21bd","value":"1535414400"}],"hideIf":false}],"required":true,"parentId":null,"custom":true,"options":[{"id":"193e0a13-6eb3-4631-bf1b-9a8320b97467","label":""},{"id":"b014e59f-8300-4749-a22d-d9cf55a43172","label":""}],"conditionals":[],"hideIf":false}]'
+		--	,@CreatedBy = 'JT'
+
+		--GET ALL THE RESPOSE TYPES FOR MULTIPLE/SINGLE CHOICE(S)
+		DECLARE @MultiResposeTypes TABLE
+		(
+			ID INT
+		)
+		INSERT INTO @MultiResposeTypes(ID)
+		SELECT 
+			ID
+		FROM 
+			ResponseTypes 
+		WHERE 
+			Name IN ('SingleSelect','MultiSelect','Rank');
+
+		IF(OBJECT_ID('tempdb..#tmpQuestions') Is Not Null)
+		BEGIN
+			DROP TABLE #tmpQuestions
+		END
+		CREATE TABLE #tmpQuestions
+		(
+			GuidId			UNIQUEIDENTIFIER
+			,_id			VARCHAR(36)  
+			,_order			INT			 
+			,_label			NVARCHAR(400)
+			,_type			INT			 
+			,_text			NVARCHAR(4000)
+			,_required		VARCHAR(10)
+			,_parentId		VARCHAR(36) NULL
+			,ParentId		UNIQUEIDENTIFIER NULL
+			,IsCustom		BIT NULL
+			,_HideIf		BIT NULL
+			,AllowComments	BIT NULL
+			,Comment		VARCHAR(280)
+		)
+
+		--Parent Questions
+		INSERT INTO #tmpQuestions(GuidId, _id, _order, _label, _type, _text, _required, _parentId, ParentId, IsCustom, _HideIf, AllowComments, Comment)
+		SELECT 
+			CASE WHEN ISNUMERIC(_id) <> 1 THEN _id ELSE LOWER(NEWID()) END AS GuidId,
+			_id,_order,_label,_type,_text,_required,_parentId, NULL as ParentId, NULL AS IsCustom, CAST(IIF(_hideIf IS NULL,0,IIF(LOWER(_hideIf) = 'true',1,0)) AS BIT) HideIf,
+			CAST(IIF(_allowComments IS NULL,0,IIF(LOWER(_allowComments) = 'true',1,0)) AS BIT) AllowComments, _comment as Comment
+		FROM  
+		 OPENJSON ( @json )  
+		WITH (
+			_id				VARCHAR(36)    '$.id',
+			_order			INT			   '$.order',
+			_label			NVARCHAR(400)  '$.label',
+			_type			INT			   '$.type',
+			_text			NVARCHAR(4000) '$.text',
+			_required		VARCHAR(10)	   '$.required',
+			_parentId		VARCHAR(36)    '$.parentId',
+			_hideIf			VARCHAR(5)	   '$.hideIf',
+			_allowComments	VARCHAR(5)	   '$.allowComments',
+			_comment		VARCHAR(280)   '$.comment'
+		) AS Q
+		ORDER BY
+			_order;
+		
+		-- print '1'
+
+		--UPDATE Parent for all child questions
+		UPDATE Q SET ParentId = LOWER(P.GuidId)
+		FROM
+			#tmpQuestions Q
+		INNER JOIN #tmpQuestions P
+			ON Q._parentId = P._id;
+
+		-- print '2'
+
+		--UPDATE IsCustom for all questions
+		UPDATE Q SET IsCustom = CAST(IIF(T.Id IS NULL,1,0) AS BIT)
+		FROM
+			#tmpQuestions Q
+		LEFT JOIN SurveyTemplateQuestions T
+			ON Q.GuidId = T.QuestionId;
+		
+		-- print '3'
+
+		--Conditionals
+		IF(OBJECT_ID('tempdb..#tmpConditionals') IS NOT NULL)
+		BEGIN
+			DROP TABLE #tmpConditionals
+		END
+		CREATE TABLE #tmpConditionals
+		(
+			QuestionId				UNIQUEIDENTIFIER
+			,_qid					VARCHAR(36) 
+			,ConditionQuestionId	UNIQUEIDENTIFIER
+			,_conditionId			VARCHAR(36) 
+			,_Value					VARCHAR(400)
+			,ValueOptionId			UNIQUEIDENTIFIER NULL
+		)
+
+		INSERT INTO #tmpConditionals(QuestionId,_qid,ConditionQuestionId,_conditionId,_Value, ValueOptionId)
+		SELECT T.GuidId, Q._id, TC.GuidId AS ConditionQuestionId, C._cQuestionId, C._cValue, NULL
+		FROM  
+			OPENJSON (@json)  
+		WITH (
+			_id				VARCHAR(36)    '$.id',
+			_conditionals	NVARCHAR(MAX)  '$.conditionals'		AS JSON 
+		) AS Q
+		CROSS APPLY OPENJSON(_conditionals)
+		WITH (
+			_cQuestionId	VARCHAR(36)    '$.questionId',
+			_cValue			VARCHAR(400)   '$.value'	
+		) AS C
+		INNER JOIN #tmpQuestions T
+			ON T._id = Q._id
+		INNER JOIN #tmpQuestions TC
+			ON TC._id = C._cQuestionId
+		ORDER BY
+			Q._id,C._cQuestionId;			
+
+		-- print '4'
+
+		--Options
+		IF(OBJECT_ID('tempdb..#tmpOptions') IS NOT NULL)
+		BEGIN
+			DROP TABLE #tmpOptions
+		END
+		CREATE TABLE #tmpOptions
+		(
+			QuestionGuidId	UNIQUEIDENTIFIER
+			,OptionId		UNIQUEIDENTIFIER
+			,_id			VARCHAR(36)  
+			,_label			VARCHAR(400)
+			,_order			INT
+		)
+
+		INSERT INTO #tmpOptions(QuestionGuidId,OptionId,_id,_label, _order)
+		SELECT 
+			T.GuidId AS QuestionGuidId, CASE WHEN ISNUMERIC(_oId) <> 1 THEN _oId ELSE LOWER(NEWID()) END AS OptionId
+			,O._oId, O._oLabel,(ROW_NUMBER() OVER(PARTITION BY Q._id ORDER BY Q._id) -1) AS _Order
+		FROM  
+		 OPENJSON ( @json )  
+		WITH (
+			_id			VARCHAR(36)    '$.id',
+			_options	NVARCHAR(MAX)  '$.options'		AS JSON 
+		) AS Q
+		CROSS APPLY OPENJSON(_options)
+		WITH (
+			_oId		VARCHAR(36)    '$.id',
+			_oLabel		VARCHAR(400)   '$.label'	
+		) AS O
+		INNER JOIN #tmpQuestions T
+			ON T._id = Q._id
+		;
+
+		-- print '5'
+		DECLARE @UTCTime DATETIMEOFFSET 
+		SET @UTCTime = SYSDATETIMEOFFSET();
+
+		--INSERT NEW QUESTIONS
+		INSERT INTO Questions (Id,Label,ResponseTypeId,Question,ResponseRequired,CreatedBy,DateCreated, HideIf, ApprovalComment)
+		SELECT 
+			LOWER(GuidId),_label,_type,_text,_required, @CreatedBy, @UTCTime, T._HideIf, T.Comment
+		FROM 
+			#tmpQuestions T
+		LEFT JOIN dbo.Questions Q
+			ON T.GuidId = Q.Id
+		WHERE
+			Q.Id IS NULL
+			AND T.IsCustom = 1;
+
+		--UPDATE PARENT-QUESTION RELATIONSHIP
+		UPDATE Q SET ParentId = LOWER(T.ParentId), ApprovalComment =T.Comment
+		FROM 
+			dbo.Questions Q
+		INNER JOIN #tmpQuestions T
+			ON T.GuidId = Q.Id
+		WHERE 
+			T.IsCustom = 1;
+	
+		-- print '6'
+
+		--DELETE ALL SurveyQuestions FOR ALL ENTITIES
+		DELETE SQ
+		FROM
+			dbo.SurveyQuestions SQ
+		INNER JOIN SurveyEntities SE 
+			ON SQ.SurveyEntityId = SE.Id
+		INNER JOIN Surveys S
+			ON S.Id = SE.SurveyId
+		WHERE
+			S.Id = @SurveyId;
+
+		-- print '7'
+
+		--INSERT ALL NEW SurveyQuestions FOR ALL ENTITIES
+		INSERT INTO dbo.SurveyQuestions (Id, QuestionOrder,QuestionId, SurveyEntityId)
+		SELECT LOWER(NEWID()) AS Id, T._Order AS QuestionOrder, T.GuidId AS QuestionId, SE.Id AS SurveyEntityId
+		FROM 
+			#tmpQuestions T, SurveyEntities SE, Surveys S
+		WHERE
+			SE.SurveyId = S.Id
+			AND S.Id = @SurveyId;
+
+		--UPDATE QUESTION ORDER, HIDE IF AND PARENTID ON SurveyQuestions TABLE
+		UPDATE SQ SET QuestionOrder = T._order, ParentId = T.ParentId, HideIf = T._HideIf, AllowComments = T.AllowComments
+		FROM
+			dbo.SurveyQuestions SQ
+		INNER JOIN SurveyEntities SE 
+			ON SQ.SurveyEntityId = SE.Id
+		INNER JOIN Surveys S
+			ON S.Id = SE.SurveyId		
+		INNER JOIN #tmpQuestions T
+			ON T.GuidId = SQ.QuestionId
+		WHERE
+			S.Id = @SurveyId;
+
+		-- print '8'
+
+		--DELETE OR ADD NEW CHOICES
+		DELETE C 
+		FROM dbo.Choices C
+		INNER JOIN	#tmpQuestions Q
+			ON C.QuestionId = Q.GuidId
+		WHERE
+			Q.IsCustom = 1;
+
+		-- print '9'
+
+		INSERT dbo.Choices (Id,QuestionId,ChoiceString,ChoiceNumber)
+		SELECT O.OptionId, Q.GuidId, O._label, O._order
+		FROM #tmpOptions O
+		INNER JOIN #tmpQuestions Q
+			ON O.QuestionGuidId = Q.GuidId
+		WHERE
+			Q.IsCustom = 1;
+
+		-- print '10'
+		--UPDATE ALL ValueOptionId FOR ALL CUSTOM QUESTIONS THAT ARE MULTI OPTION RESPONSE
+		UPDATE C SET ValueOptionId = O.OptionId, _Value = LOWER(O.OptionId)
+		FROM
+			dbo.Questions Q
+		INNER JOIN #tmpConditionals C
+			ON C.ConditionQuestionId = Q.Id
+		INNER JOIN @MultiResposeTypes M
+			ON Q.ResponseTypeId = M.ID
+		INNER JOIN #tmpOptions O
+			ON Q.Id = O.QuestionGuidId AND C._Value = O._id
+		INNER JOIN #tmpQuestions TQ
+			ON TQ.GuidId = Q.Id
+		WHERE
+			TQ.IsCustom = 1;
+
+		-- print '11'
+		--UPDATE VisibleIf AND HideIf FOR ALL QUESTIONS
+		UPDATE Q SET HideIf = TQ._HideIf, 
+			VisibleIf = (SELECT LOWER(sT.ConditionQuestionId) AS 'questionId', sT._Value AS 'value'
+						FROM 
+							#tmpConditionals sT			
+						WHERE sT.QuestionId = T.QuestionId
+						FOR JSON PATH)
+		FROM
+			dbo.Questions Q
+		INNER JOIN #tmpQuestions TQ
+			ON TQ.GuidId = Q.Id
+		INNER JOIN #tmpConditionals T
+			ON T.QuestionId = Q.Id
+		WHERE
+			TQ.IsCustom = 1;
+		
+		-- print '12'
+
+		--UPDATE ALL EDITABLE PROPERTIES OF CUSTOM QUESTION
+		UPDATE Q SET
+			Question = T._text, Label = T._label, ParentId = T.ParentId, ResponseRequired = T._required		
+		FROM
+			Questions Q
+		INNER JOIN #tmpQuestions T
+			ON Q.Id = T.GuidId
+		WHERE
+			T.IsCustom = 1;
+		
+		-- print '13'
+		
+		--SELECT ALL RESULTS IN ORDER: 1) Questions, 2) Options, 3) Conditionals
+		SELECT 
+			LOWER(CONVERT(VARCHAR(36),GuidId)) AS Id, GuidId AS QuestionId, _order AS [Order], _label AS Label, _type AS ResponseTypeId, _text AS [Text]
+			,CAST(ISNULL(_required,0) AS BIT) AS IsRequired, CASE WHEN ParentId IS NULL THEN NULL ELSE LOWER(CONVERT(VARCHAR(36), ParentId)) END AS ParentId
+			,_HideIf AS HideIf, AllowComments, Comment
+		FROM
+			#tmpQuestions;
+		
+		-- print '14'
+
+		SELECT 
+			LOWER(CONVERT(VARCHAR(36),O.OptionId)) AS Id, O.QuestionGuidId AS QuestionId, O._label AS Label
+		FROM #tmpOptions O;
+
+		SELECT 
+			LOWER(CONVERT(VARCHAR(36),ConditionQuestionId)) AS [QuestionId], ConditionQuestionId AS Id, _Value AS [Value]
+		FROM 
+			#tmpConditionals;
+		
+		IF(OBJECT_ID('tempdb..#tmpQuestions') IS NOT NULL)
+		BEGIN
+			DROP TABLE #tmpQuestions
+		END
+		
+		IF(OBJECT_ID('tempdb..#tmpOptions') IS NOT NULL)
+		BEGIN
+			DROP TABLE #tmpOptions
+		END
+
+		IF(OBJECT_ID('tempdb..#tmpConditionals') IS NOT NULL)
+		BEGIN
+			DROP TABLE #tmpConditionals
+		END		       
+		IF @@TRANCOUNT > 0
+          COMMIT
+    END TRY
+    BEGIN CATCH
+      IF @@TRANCOUNT > 0
+         ROLLBACK
+      -- Raise an error with the details of the exception
+      DECLARE @ErrMsg nvarchar(4000), @ErrSeverity int
+      SELECT @ErrMsg = ERROR_MESSAGE(),
+             @ErrSeverity = ERROR_SEVERITY()
+
+      RAISERROR(@ErrMsg, @ErrSeverity, 1)
+    END CATCH
+	SET NOCOUNT OFF
+END
